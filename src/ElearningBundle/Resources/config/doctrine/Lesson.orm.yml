@@ -1,0 +1,41 @@
+ElearningBundle\Entity\Lesson:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        correctTotal:
+            type: integer
+            column: correct_total
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+    manyToOne:
+        user:
+            targetEntity: User
+            inversedBy: lesson
+            joinColumn:
+                name: user_id
+                referencedColumnName: id
+        category:
+            targetEntity: Category
+            inversedBy: lesson
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    oneToMany:
+        results:
+            targetEntity: Result
+            mappedBy: Lesson

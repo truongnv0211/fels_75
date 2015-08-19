@@ -1,0 +1,33 @@
+ElearningBundle\Entity\Category:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+        content:
+            type: text
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+    oneToMany:
+        words:
+            targetEntity: Word
+            mappedBy: category
+        lessons:
+            targetEntity: Lesson
+            mappedBy: category

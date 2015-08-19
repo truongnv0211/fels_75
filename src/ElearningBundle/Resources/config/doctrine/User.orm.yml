@@ -1,0 +1,49 @@
+ElearningBundle\Entity\User:
+    type: entity
+    table: null
+    actAs:
+        Timestampable:
+            created:
+                name: created_time
+            updated:
+                disabled: true
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        name:
+            type: string
+            length: 255
+            notnull: true
+        email:
+            type: string
+            length: 255
+            notnull: true
+        password:
+            type: string
+            length: 255
+            notnull: true
+        active:
+            type: boolean
+            notnull: true
+        admin:
+            type: boolean
+            notnull: true
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+    oneToMany:
+         lessons:
+             targetEntity: Lesson
+             mappedBy: user

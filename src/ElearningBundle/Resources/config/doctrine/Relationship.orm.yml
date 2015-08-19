@@ -1,0 +1,32 @@
+ElearningBundle\Entity\Relationship:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+    oneToOne:
+        follower:
+            targetEntity: User
+            joinColumn:
+                name: follower_id
+                referencedColumnName: id
+        followee:
+            targetEntity: User
+            joinColumn:
+                name: followee_id
+                referencedColumnName: id

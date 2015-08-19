@@ -1,0 +1,38 @@
+ElearningBundle\Entity\Word:
+    type: entity
+    table: null
+    id:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+    fields:
+        content:
+            type: string
+            length: 255
+        created_at:
+            type: date
+            gedmo:
+                timestampable:
+                    on: create
+        updated_at:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+    oneToMany:
+         results:
+             targetEntity: Result
+             mappedBy: word
+         answers:
+             targetEntity: Answer
+             mappedBy: word
+    manyToOne:
+        category:
+            targetEntity: Category
+            inversedBy: word
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
