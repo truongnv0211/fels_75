@@ -1,0 +1,42 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ElearningBundle | Registration{% endblock %}
+
+{% block body %}
+    <div class="col-xs-6 col-xs-offset-3">
+      <h3 class="text-center">User Registration</h3>
+      <form action="{{ path('user_registration') }}" method="POST">
+        {% if form_errors(form) %}
+          <div class="alert alert-danger">
+            {{ form_errors(form) }}
+          </div>
+        {% endif %}
+        {% if form_errors(form.username) %}
+          <div class="alert alert-danger">
+            {{ form_errors(form.username) }}
+          </div>
+        {% endif %}
+        {% if form_errors(form.email) %}
+          <div class="alert alert-danger">
+            {{ form_errors(form.email) }}
+          </div>
+        {% endif %}
+        {% if form_errors(form.password) %}
+          <div class="alert alert-danger">
+            {{ form_errors(form.password) }}
+          </div>
+        {% endif %}
+        {{ form_label(form.username, 'Username') }}
+        {{ form_widget(form.username, {'attr': {'class': 'form-control', required: true}}) }}
+        {{ form_label(form.email, 'E-mail') }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control', required: true}}) }}
+        {{ form_label(form.password.first, 'Password') }}
+        {{ form_widget(form.password.first, {'attr': {'class': 'form-control', required: true}}) }}
+        {{ form_label(form.password.second, 'Confirm password') }}
+        {{ form_widget(form.password.second, {'attr': {'class': 'form-control', required: true}}) }}
+        <br>
+        <input type="submit" value="Register" class="btn btn-primary btn-block">
+        {{ form_rest(form) }}
+      </form>
+    </div>
+{% endblock %}

@@ -1,13 +1,38 @@
 # To get started with security, check out the documentation:
 # http://symfony.com/doc/current/book/security.html
 security:
+    encoders:
+        ElearningBundle\Entity\User:
+            algorithm: sha1
+            encode_as_base64: false
+            iterations: 1
 
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
+    role_hierarchy:
+        ROLE_ADMIN:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
     providers:
         in_memory:
-            memory: ~
+            memory:
+                users:
+                    user:  { roles: [ 'ROLE_USER' ] }
+                    admin: { roles: [ 'ROLE_ADMIN' ] }
+        users:
+            entity: { class: ElearningBundle:User, property: username }
 
     firewalls:
+        secured_area:
+            pattern: ^/
+            anonymous: true
+            form_login:
+                check_path: security_login_check
+                login_path: security_login_form
+                csrf_provider: security.csrf.token_manager
+            logout:
+                path: security_logout
+                target: elearning_homepage
+
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

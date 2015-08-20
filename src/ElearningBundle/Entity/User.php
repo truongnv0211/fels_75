@@ -2,12 +2,21 @@
 
 namespace ElearningBundle\Entity;
 
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * User
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="ElearningBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="username", message="Username already taken")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -17,7 +26,7 @@ class User
     /**
      * @var string
      */
-    private $name;
+    private $username;
 
     /**
      * @var string
@@ -28,6 +37,11 @@ class User
      * @var string
      */
     private $password;
+
+    /**
+     * @var string
+     */
+    private $salt;
 
     /**
      * @var boolean
@@ -67,7 +81,7 @@ class User
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -75,26 +89,25 @@ class User
     }
 
     /**
-     * Set name
+     * Set username
      *
-     * @param string $name
+     * @param string $username
      * @return User
      */
-    public function setName($name)
+    public function setUsername($username)
     {
-        $this->name = $name;
-
+        $this->username = $username;
         return $this;
     }
 
     /**
-     * Get name
+     * Get username
      *
-     * @return string 
+     * @return string
      */
-    public function getName()
+    public function getUsername()
     {
-        return $this->name;
+        return $this->username;
     }
 
     /**
@@ -106,14 +119,13 @@ class User
     public function setEmail($email)
     {
         $this->email = $email;
-
         return $this;
     }
 
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -129,14 +141,13 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
 
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -152,14 +163,13 @@ class User
     public function setActive($active)
     {
         $this->active = $active;
-
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -175,14 +185,13 @@ class User
     public function setAdmin($admin)
     {
         $this->admin = $admin;
-
         return $this;
     }
 
     /**
      * Get admin
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getAdmin()
     {
@@ -192,7 +201,7 @@ class User
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -202,7 +211,7 @@ class User
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -218,7 +227,6 @@ class User
     public function addLesson(\ElearningBundle\Entity\Lesson $lessons)
     {
         $this->lessons[] = $lessons;
-
         return $this;
     }
 
@@ -235,10 +243,49 @@ class User
     /**
      * Get lessons
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLessons()
     {
         return $this->lessons;
+    }
+    /**
+     * @inheritDoc
+     */
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function eraseCredentials()
+    {
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function equals(UserInterface $user)
+    {
+        if ($this->password !== $user->getPassword()) {
+            return false;
+        }
+
+        if ($this->salt !== $user->getSalt()) {
+            return false;
+        }
+
+        if ($this->username !== $user->getUsername()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function getSalt()
+    {
+        return $this->salt;
     }
 }

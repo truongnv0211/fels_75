@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ElearningBundle | Login{% endblock %}
+
+{% block body %}
+  <div class="col-xs-6 col-xs-offset-3">
+    <h3 class="text-center">Log in</h3>
+    {% if error %}
+      <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+    <form action="{{ path('security_login_check') }}" method="POST">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control" required="true" />
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="_password" class="form-control" required="true" />
+      <input type="hidden" name="_target_path" value="/" /><br>
+      <button type="submit" class="btn btn-primary btn-block">Log in</button>
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+    </form>
+  </div>
+{% endblock %}
