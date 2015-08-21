@@ -1,11 +1,16 @@
 <header class="navbar navbar-inverse" role="navigation">
   <div class="container">
     <div class="navbar-header">
-        <a class="navbar-brand" href="{{ path('elearning_homepage') }}" id="logo">E-Learning System</a>
+      <a class="navbar-brand" href="{{ path('elearning_homepage') }}" id="logo">E-Learning System</a>
     </div>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="{{ path('elearning_homepage') }}">Home</a></li>
       <li><a href="{{ path('about_page') }}">About</a></li>
+      {% if app.user %}
+        <li><a href="{{ path('logout') }}">Log out</a></li>
+      {% else %}
+        <li><a href="{{ path('login') }}">Log in</a></li>
+      {% endif %}
     </ul>
   </div>
 </header>

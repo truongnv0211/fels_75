@@ -3,11 +3,18 @@
 namespace ElearningBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
+
 /**
  * User
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="Email already taken")
  */
-class User
+class User implements UserInterface
 {
     /**
      * @var integer
@@ -16,16 +23,21 @@ class User
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 4)
      */
     private $name;
 
     /**
      * @var string
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
      * @var string
+     * @Assert\Length(min = 6)
      */
     private $password;
 
@@ -33,11 +45,6 @@ class User
      * @var boolean
      */
     private $active;
-
-    /**
-     * @var boolean
-     */
-    private $admin;
 
     /**
      * @var \DateTime
@@ -62,12 +69,13 @@ class User
     public function __construct()
     {
         $this->lessons = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->active = true;
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -90,7 +98,7 @@ class User
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -113,7 +121,7 @@ class User
     /**
      * Get email
      *
-     * @return string 
+     * @return string
      */
     public function getEmail()
     {
@@ -136,7 +144,7 @@ class User
     /**
      * Get password
      *
-     * @return string 
+     * @return string
      */
     public function getPassword()
     {
@@ -159,7 +167,7 @@ class User
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
@@ -167,32 +175,9 @@ class User
     }
 
     /**
-     * Set admin
-     *
-     * @param boolean $admin
-     * @return User
-     */
-    public function setAdmin($admin)
-    {
-        $this->admin = $admin;
-
-        return $this;
-    }
-
-    /**
-     * Get admin
-     *
-     * @return boolean 
-     */
-    public function getAdmin()
-    {
-        return $this->admin;
-    }
-
-    /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -202,7 +187,7 @@ class User
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -235,10 +220,29 @@ class User
     /**
      * Get lessons
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLessons()
     {
         return $this->lessons;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function getUsername()
+    {
+        return $this->name;
     }
 }

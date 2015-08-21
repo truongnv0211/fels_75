@@ -1,0 +1,16 @@
+{% extends "::base.html.twig" %}
+{% form_theme form 'bootstrap_3_layout.html.twig' %}
+
+{% block title %}ElearningBundle | Registration{% endblock %}
+
+{% block body %}
+    <div class="col-xs-6 col-xs-offset-3">
+      <h3 class="text-center">User Registration</h3>
+      {{ form_start(form, {'action': path('user_registration'), 'method': 'POST'}) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.password) }}
+        <input type="submit" value="Register" class="btn btn-primary btn-block">
+      {{ form_end(form) }}
+    </div>
+{% endblock %}

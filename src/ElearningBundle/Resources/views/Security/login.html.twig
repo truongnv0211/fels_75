@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ElearningBundle | Login{% endblock %}
+
+{% block body %}
+  <div class="col-xs-6 col-xs-offset-3">
+    <h3 class="text-center">Log in</h3>
+    {% if error %}
+      <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+      </div>
+    {% endif %}
+    {{ form_start(form, {'action': path('login_check'), 'method': 'POST'}) }}
+      {{ form_widget(form) }}
+      <input type="submit" value="Login" class="btn btn-primary btn-block">
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
