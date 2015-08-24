@@ -23,6 +23,8 @@ ElearningBundle\Entity\User:
         active:
             type: boolean
             notnull: true
+        roles:
+            type: text
         created_at:
             type: date
             gedmo:

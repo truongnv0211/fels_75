@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Category edit</h1>
+    {{ form_start(form, {'action': path('category_edit', {id: category.id}), 'method': 'POST'}) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Update"
+           class="btn btn-default" />
+    {{ form_end(form) }}
+    <a href="{{ path('category') }}" class="btn btn-default">
+        Back to the list
+    </a>
+    <a href="{{ path('category_delete', {id: category.id}) }}" class="btn btn-default" onclick="return confirm('Are you sure?')">
+        Delete
+    </a>
+{% endblock %}
