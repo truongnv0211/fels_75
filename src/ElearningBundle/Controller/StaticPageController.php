@@ -15,7 +15,7 @@ class StaticPageController extends Controller
      */
     public function indexAction()
     {
-       return [];
+        return [];
     }
 
     /**
@@ -27,5 +27,4 @@ class StaticPageController extends Controller
     {
         return [];
     }
-
 }

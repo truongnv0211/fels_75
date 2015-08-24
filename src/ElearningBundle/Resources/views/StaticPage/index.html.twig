@@ -4,6 +4,9 @@
 
 {% block body %}
   <div class="jumbotron">
-    <h1>Welcome to the StaticPage:index page</h1>
+    <h3>Welcome to the StaticPage:index page</h3>
+    {% if app.user == false %}
+      <a href="{{ path('user_registration') }}" class="btn btn-primary">Register</a>
+    {% endif %}
   </div>
 {% endblock %}

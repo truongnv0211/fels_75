@@ -1,12 +1,6 @@
 ElearningBundle\Entity\User:
     type: entity
     table: null
-    actAs:
-        Timestampable:
-            created:
-                name: created_time
-            updated:
-                disabled: true
     id:
         id:
             type: integer
@@ -27,9 +21,6 @@ ElearningBundle\Entity\User:
             length: 255
             notnull: true
         active:
-            type: boolean
-            notnull: true
-        admin:
             type: boolean
             notnull: true
         created_at:
