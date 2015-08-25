@@ -47,6 +47,11 @@ class User implements UserInterface
     private $active;
 
     /**
+     * @var string
+     */
+    private $roles;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      */
@@ -70,6 +75,7 @@ class User implements UserInterface
     {
         $this->lessons = new \Doctrine\Common\Collections\ArrayCollection();
         $this->active = true;
+        $this->roles = 'ROLE_USER';
     }
 
     /**
@@ -229,7 +235,7 @@ class User implements UserInterface
 
     public function getRoles()
     {
-        return ['ROLE_USER'];
+        return explode(',', $this->roles);
     }
 
     public function eraseCredentials()

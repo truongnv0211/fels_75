@@ -1,0 +1,36 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Category list</h1>
+
+    <table class="records_list table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Content</th>
+                <th>Created at</th>
+                <th>Updated at</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for category in categories %}
+            <tr>
+                <td><a href="{{ path('category_show', { 'id': category.id }) }}">{{ category.id }}</a></td>
+                <td>{{ category.name }}</td>
+                <td>{{ category.content }}</td>
+                <td>{% if category.createdAt %}{{ category.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if category.updatedAt %}{{ category.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <a href="{{ path('category_show', { 'id': category.id }) }}" class="btn btn-default">show</a>
+                    <a href="{{ path('category_edit', { 'id': category.id }) }}" class="btn btn-default">edit</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ path('category_new') }}" class="btn btn-default">
+        Create a new entry
+    </a>
+{% endblock %}
