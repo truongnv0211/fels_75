@@ -1,0 +1,25 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>User Profile</h1>
+
+    <table class="record_properties table table-responsive">
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ user.id }}</td>
+        </tr>
+        <tr>
+            <th>Name</th>
+            <td>{{ user.name }}</td>
+        </tr>
+        <tr>
+            <th>Email</th>
+            <td>{{ user.email }}</td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('user_edit') }}" class="btn btn-default">
+        Edit profile
+    </a>
+{% endblock %}

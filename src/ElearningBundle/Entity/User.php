@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 
 /**
  * User
@@ -250,5 +251,64 @@ class User implements UserInterface
     public function getUsername()
     {
         return $this->name;
+    }
+
+    /**
+     * @SecurityAssert\UserPassword(
+     *     message = "Wrong value for your current password",
+     *     groups = "change_password"
+     * )
+     */
+    protected $oldPassword;
+
+    /**
+     * Set name
+     *
+     * @param string $oldPassword
+     * @return ChangePassword
+     */
+    public function setOldPassword($oldPassword)
+    {
+        $this->oldPassword = $oldPassword;
+
+        return $this;
+    }
+    /**
+     * Get oldPassword
+     *
+     * @return string
+     */
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
+    }
+
+    /**
+     * @var string
+     *
+     * @Assert\Length(min = 6, groups = "change_password")
+     */
+    private $newPassword;
+
+    /**
+     * Set name
+     *
+     * @param string password
+     * @return ChangePassword
+     */
+    public function setNewPassword($password)
+    {
+        $this->newPassword = $password;
+
+        return $this;
+    }
+    /**
+     * Get oldPassword
+     *
+     * @return string
+     */
+    public function getNewPassword()
+    {
+        return $this->newPassword;
     }
 }
