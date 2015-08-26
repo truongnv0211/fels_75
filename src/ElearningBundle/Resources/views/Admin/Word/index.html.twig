@@ -1,0 +1,38 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Elearning | Admin word{% endblock %}
+
+{% block body %}
+  <h3 class="text-center">List All Word</h3>
+  <a href="{{ path('new_admin_word') }}" class="btn btn-primary">New Word</a>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Content</th>
+        <th>Category</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for word in pagination %}
+        <tr>
+          <td>{{ word.id }}</td>
+          <td>{{ word.content }}</td>
+          <td>{{ word.category.name }}</td>
+          <td>
+            <a href="{{ path('show_admin_word', {id: word.id}) }}"
+              class="btn btn-sm btn-default">Show</a>
+            <a href="{{ path('edit_admin_word', {id: word.id}) }}"
+              class="btn btn-sm btn-warning">Edit</a>
+            <a href="{{ path('delete_admin_word', {id: word.id}) }}"
+              onclick="return confirm('Are u sure?')" class="btn btn-sm btn-danger" >Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <div class="navigation">
+    {{ knp_pagination_render(pagination) }}
+  </div>
+{% endblock %}

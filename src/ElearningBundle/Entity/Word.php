@@ -59,7 +59,7 @@ class Word
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,7 +82,7 @@ class Word
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -92,7 +92,7 @@ class Word
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -102,7 +102,7 @@ class Word
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -135,7 +135,7 @@ class Word
     /**
      * Get results
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getResults()
     {
@@ -148,11 +148,10 @@ class Word
      * @param \ElearningBundle\Entity\Answer $answers
      * @return Word
      */
-    public function addAnswer(\ElearningBundle\Entity\Answer $answers)
+    public function addAnswer(\ElearningBundle\Entity\Answer $answer)
     {
-        $this->answers[] = $answers;
-
-        return $this;
+        $answer->setWord($this);
+        $this->answers->add($answer);
     }
 
     /**
@@ -160,15 +159,15 @@ class Word
      *
      * @param \ElearningBundle\Entity\Answer $answers
      */
-    public function removeAnswer(\ElearningBundle\Entity\Answer $answers)
+    public function removeAnswer(\ElearningBundle\Entity\Answer $answer)
     {
-        $this->answers->removeElement($answers);
+        $this->answers->removeElement($answer);
     }
 
     /**
      * Get answers
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getAnswers()
     {
@@ -191,7 +190,7 @@ class Word
     /**
      * Get category
      *
-     * @return \ElearningBundle\Entity\Category 
+     * @return \ElearningBundle\Entity\Category
      */
     public function getCategory()
     {

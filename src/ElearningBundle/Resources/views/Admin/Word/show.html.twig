@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ElearningBundle | Word Detail{% endblock %}
+
+{% block body %}
+<h3 class="text-center">Word Detail</h3>
+<table class="table">
+  <tr>
+    <th>Content : </th>
+    <td>{{ word.content }}</td>
+  </tr>
+  <tr>
+    <th>Catagory : </th>
+    <td>{{ word.category.name }}</td>
+  </tr>
+  {% for index, answer in word.answers %}
+    <tr>
+      <th>Answer {{ index + 1 }}: </th>
+      <td>{{ answer.content }} {% if answer.correct %}(Correct Answer){% endif %}</td>
+    </tr>
+  {% endfor %}
+</table>
+{% endblock %}
