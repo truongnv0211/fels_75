@@ -29,6 +29,7 @@ ElearningBundle\Entity\Word:
          answers:
              targetEntity: Answer
              mappedBy: word
+             cascade: ["persist"]
     manyToOne:
         category:
             targetEntity: Category

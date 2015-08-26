@@ -1,0 +1,21 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Elearning | Edit word{% endblock %}
+
+{% block body %}
+  <div class="col-md-8 col-md-offset-2">
+    <h3 class="text-center">Edit word</h3>
+    {{ form_start(form) }}
+      {{ form_row(form.content) }}
+      {{ form_row(form.category) }}
+      <strong>Answer</strong><hr>
+      {% for index, answer in form.answers %}
+        <strong>Answer {{ index + 1 }}</strong>
+        {{ form_row(answer.content) }}
+        {{ form_row(answer.correct) }}
+      {% endfor %}
+      <input type="submit" class="btn btn-primary btn-block"/>
+      <a href="{{ path('admin_word_index') }}">Back</a>
+    {{ form_end(form) }}
+  </div>
+{% endblock %}
