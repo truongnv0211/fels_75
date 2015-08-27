@@ -59,7 +59,7 @@ class Category
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -82,7 +82,7 @@ class Category
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -105,7 +105,7 @@ class Category
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {
@@ -115,7 +115,7 @@ class Category
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -125,7 +125,7 @@ class Category
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -158,7 +158,7 @@ class Category
     /**
      * Get words
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getWords()
     {
@@ -191,10 +191,15 @@ class Category
     /**
      * Get lessons
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getLessons()
     {
         return $this->lessons;
+    }
+
+    public function isEnoughWords()
+    {
+        return count($this->words) >= Lesson::WORDS_PER_CATEGORY;
     }
 }

@@ -13,12 +13,12 @@ use ElearningBundle\Entity\Answer;
 use ElearningBundle\Form\WordType;
 
 /**
- * @Route('/admin/words')
+ * @Route("/admin/words")
  */
 class WordController extends Controller
 {
     /**
-     * @Route('/', name='admin_word_index')
+     * @Route("/", name="admin_word_index")
      * @Template()
      */
     public function indexAction()
@@ -33,8 +33,8 @@ class WordController extends Controller
     }
 
     /**
-     * @Route('/new', name='new_admin_word')
-     * @Method({'GET', 'POST'})
+     * @Route("/new", name="new_admin_word")
+     * @Method({"GET", "POST"})
      * @Template()
      */
     public function newAction(Request $request)
@@ -62,7 +62,7 @@ class WordController extends Controller
     }
 
     /**
-     * @Route('/{id}', name='show_admin_word')
+     * @Route("/{id}", name="show_admin_word")
      * @Template()
      */
     public function showAction($id)
@@ -78,9 +78,9 @@ class WordController extends Controller
     }
 
     /**
-     * @Route('/{id}/edit', name='edit_admin_word')
+     * @Route("/{id}/edit", name="edit_admin_word")
      * @Template()
-     * @Method({'GET', 'POST'})
+     * @Method({"GET", "POST"})
      */
     public function editAction($id, Request $request)
     {
@@ -107,7 +107,7 @@ class WordController extends Controller
     }
 
     /**
-     * @Route('/{id}/delete', name='delete_admin_word')
+     * @Route("/{id}/delete", name="delete_admin_word")
      */
     public function deleteAction(Request $request, $id)
     {

@@ -3,10 +3,30 @@
 {% block title %}Elearning | Home{% endblock %}
 
 {% block body %}
-  <div class="jumbotron">
-    <h3>Welcome to the StaticPage:index page</h3>
-    {% if app.user == false %}
-      <a href="{{ path('user_registration') }}" class="btn btn-primary">Register</a>
-    {% endif %}
-  </div>
+  {% if app.user == false %}
+    <div class="jumbotron">
+      <h3>Welcome to the StaticPage:index page</h3>
+      <a href="{{ path('user_registration') }}"
+        class="btn btn-primary">Register</a>
+    </div>
+  {% else %}
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-6">
+            <a href="#" class="btn btn-block btn-lg btn-primary">Word List</a>
+          </div>
+          <div class="col-md-6">
+            <a href="{{ path('category_index') }}"
+              class="btn btn-block btn-lg btn-primary">Start Lesson</a>
+          </div>
+        </div><hr>
+        <div class="row">
+          <p>Activity :</p>
+        </div>
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}

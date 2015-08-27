@@ -38,9 +38,14 @@ class Result
     private $answer;
 
     /**
+     * @var \ElearningBundle\Entity\Answer
+     */
+    private $word;
+
+    /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -50,7 +55,7 @@ class Result
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -60,7 +65,7 @@ class Result
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -83,7 +88,7 @@ class Result
     /**
      * Get lesson
      *
-     * @return \ElearningBundle\Entity\Lesson 
+     * @return \ElearningBundle\Entity\Lesson
      */
     public function getLesson()
     {
@@ -106,10 +111,33 @@ class Result
     /**
      * Get answer
      *
-     * @return \ElearningBundle\Entity\Answer 
+     * @return \ElearningBundle\Entity\Answer
      */
     public function getAnswer()
     {
         return $this->answer;
+    }
+
+    /**
+     * Set word
+     *
+     * @param \ElearningBundle\Entity\Word $word
+     * @return Result
+     */
+    public function setWord(\ElearningBundle\Entity\Word $word = null)
+    {
+        $this->word = $word;
+
+        return $this;
+    }
+
+    /**
+     * Get word
+     *
+     * @return \ElearningBundle\Entity\Word
+     */
+    public function getWord()
+    {
+        return $this->word;
     }
 }

@@ -32,3 +32,9 @@ ElearningBundle\Entity\Result:
             joinColumn:
                 name: answer_id
                 referencedColumnName: id
+        word:
+            targetEntity: Word
+            inversedBy: result
+            joinColumn:
+                name: word_id
+                referencedColumnName: id
