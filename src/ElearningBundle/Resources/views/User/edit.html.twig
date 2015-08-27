@@ -1,0 +1,11 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Update profile</h1>
+    {{ form_start(form, {'action': path('user_edit', {id: user.id}), 'method': 'POST', 'attr': {'novalidate': 'novalidate'}}) }}
+    {{ form_widget(form) }}
+
+    <input type="submit" value="Update"
+        class="btn btn-default" />
+    {{ form_end(form) }}
+{% endblock %}

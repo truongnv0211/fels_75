@@ -12,7 +12,7 @@ class LoginType extends AbstractType
     {
         $builder
             ->add('email', 'text')
-            ->add('password', 'text')
+            ->add('password', 'password')
         ;
     }
 
