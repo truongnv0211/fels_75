@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Lesson
 {
+    const WORDS_PER_CATEGORY = 20;
     /**
      * @var integer
      */
@@ -18,7 +19,7 @@ class Lesson
     /**
      * @var integer
      */
-    private $correctTotal;
+    private $correctTotal = 0;
 
     /**
      * @var \DateTime
@@ -58,7 +59,7 @@ class Lesson
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -81,7 +82,7 @@ class Lesson
     /**
      * Get correctTotal
      *
-     * @return integer 
+     * @return integer
      */
     public function getCorrectTotal()
     {
@@ -91,7 +92,7 @@ class Lesson
     /**
      * Get created_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -101,7 +102,7 @@ class Lesson
     /**
      * Get updated_at
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdatedAt()
     {
@@ -134,7 +135,7 @@ class Lesson
     /**
      * Get results
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getResults()
     {
@@ -157,7 +158,7 @@ class Lesson
     /**
      * Get user
      *
-     * @return \ElearningBundle\Entity\User 
+     * @return \ElearningBundle\Entity\User
      */
     public function getUser()
     {
@@ -180,7 +181,7 @@ class Lesson
     /**
      * Get category
      *
-     * @return \ElearningBundle\Entity\Category 
+     * @return \ElearningBundle\Entity\Category
      */
     public function getCategory()
     {

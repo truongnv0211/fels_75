@@ -1,5 +1,6 @@
 ElearningBundle\Entity\Word:
     type: entity
+    repositoryClass: ElearningBundle\Repository\WordRepository
     table: null
     id:
         id:
