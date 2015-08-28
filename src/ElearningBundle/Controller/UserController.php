@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use ElearningBundle\Entity\User;
 use ElearningBundle\Form\UserType;
 use ElearningBundle\Form\UserProfileType;
+use ElearningBundle\Entity\Relationship;
 
 class UserController extends Controller
 {
@@ -52,17 +53,40 @@ class UserController extends Controller
     /**
      * Finds and displays a Category entity.
      *
-     * @Route("/profile", name="user_show")
+     * @Route("/users", name="user_index")
      * @Method("GET")
      * @Template()
      */
-    public function showAction()
+    public function indexAction()
     {
-        return ['user' => $this->getUser()];
+        $em = $this->getDoctrine()->getManager();
+        $users = $em->getRepository('ElearningBundle:User')->createQueryBuilder('u');
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($users, $this->get('request')->get('page', 1), $this->container->getParameter('users_per_page'));
+        $followee_ids = $em->getRepository('ElearningBundle:Relationship')->getFolloweeIds($this->getUser());
+        $followee_ids = $followee_ids != NULL ? call_user_func_array('array_merge', $followee_ids) : "";
+
+        return ['users' => $pagination, 'followee_ids' => $followee_ids];
     }
 
     /**
-     * @Route("/edit", name="user_edit")
+     * Finds and displays a Category entity.
+     *
+     * @Route("/user/{id}/profile", name="user_show")
+     * @Method("GET")
+     * @Template()
+     */
+    public function showAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ElearningBundle:User')->find($id);
+        $follow = $em->getRepository('ElearningBundle:Relationship')->findOneBy(['follower' => $this->getUser()->getId(), 'followee' => $id]);
+
+        return ['user' => $user, 'follow' => $follow];
+    }
+
+    /**
+     * @Route("/user/edit", name="user_edit")
      * @Template()
      * @Method({"GET", "POST"})
      */
@@ -73,7 +97,6 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid() && $form->isSubmitted()) {
-
             $encoder = $this->get('security.encoder_factory')->getEncoder($user);
             $em = $this->getDoctrine()->getManager();
             $password = $encoder->encodePassword($user->getNewPassword(), $user->getSalt());
@@ -89,5 +112,62 @@ class UserController extends Controller
         }
 
         return ['form' => $form->createView(), 'user' => $user];
+    }
+
+    /**
+     * FollowAction
+     *
+     * @Route("/user/follow/{followee_id}", name="follow")
+     * @Template()
+     * @Method({"POST"})
+     */
+    public function followAction(Request $request, $followee_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ElearningBundle:User')->find($followee_id);
+        $relationship = new Relationship();
+        $relationship->setFollowee($user);
+        $relationship->setFollower($this->getUser());
+        $em->persist($relationship);
+        $em->flush();
+
+        if ($request->isXmlHttpRequest()) {
+            $json = json_encode([
+                'followee_id' => $followee_id,
+            ]);
+            $response = new Response($json);
+            $response->headers->set('Content-Type','appication/json');
+
+            return $response;
+        }
+    }
+
+    /**
+     * FollowAction
+     *
+     * @Route("/user/unfollow/{followee_id}", name="unfollow")
+     * @Template()
+     * @Method({"POST"})
+     */
+    public function unFollowAction(Request $request, $followee_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('ElearningBundle:User')->find($followee_id);
+        $relationship = $em->getRepository('ElearningBundle:Relationship')->findOneBy([
+            'follower' => $this->getUser()->getId(),
+            'followee' => $user->getId()
+        ]);
+        $em->remove($relationship);
+        $em->flush();
+
+        if ($request->isXmlHttpRequest()) {
+            $json = json_encode([
+                'followee_id' => $followee_id,
+            ]);
+            $response = new Response($json);
+            $response->headers->set('Content-Type','appication/json');
+
+            return $response;
+        }
     }
 }

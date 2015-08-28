@@ -12,7 +12,7 @@ ElearningBundle\Entity\Lesson:
             type: integer
             column: correct_total
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
@@ -25,17 +25,17 @@ ElearningBundle\Entity\Lesson:
     manyToOne:
         user:
             targetEntity: User
-            inversedBy: lesson
+            inversedBy: lessons
             joinColumn:
-                name: user_id
+                name: user
                 referencedColumnName: id
         category:
             targetEntity: Category
-            inversedBy: lesson
+            inversedBy: lessons
             joinColumn:
-                name: category_id
+                name: category
                 referencedColumnName: id
     oneToMany:
         results:
             targetEntity: Result
-            mappedBy: Lesson
+            mappedBy: lesson
