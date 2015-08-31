@@ -33,9 +33,11 @@
         </tr>
         </tbody>
     </table>
-    <a href="{{ path('user_edit') }}" class="btn btn-default">
-        Edit profile
-    </a>
+    {% if (app.user == user) %}
+        <a href="{{ path('user_edit') }}" class="btn btn-default">
+            Edit profile
+        </a>
+    {% endif %}
     <h3>Activity</h3>
     {% for activity in activities %}
         <strong class="text-capitalize">{{ activity.user.name }}</strong>

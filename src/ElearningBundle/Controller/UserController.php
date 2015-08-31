@@ -80,12 +80,13 @@ class UserController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('ElearningBundle:User')->find($id);
-        $follow = $em->getRepository('ElearningBundle:Relationship')->findOneBy(['follower' => $this->getUser()->getId(), 'followee' => $id]);
-        $activities  = $em->getRepository('ElearningBundle:Lesson')->getActivityForUser($user);
-        $paginator  = $this->get('knp_paginator');
+        $followRelation = $em->getRepository('ElearningBundle:Relationship')->findOneBy(['follower' => $this->getUser()->getId(), 'followee' => $id]);
+        $followees = $em->getRepository('ElearningBundle:Relationship')->getFolloweeIds($this->getUser());
+        $activities = $em->getRepository('ElearningBundle:Lesson')->getActivityForUser($user, $followees);
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($activities, $this->get('request')->get('page', 1), $this->container->getParameter('activities_per_page'));
 
-        return ['user' => $user, 'follow' => $follow, 'activities' => $pagination];
+        return ['user' => $user, 'follow' => $followRelation, 'activities' => $pagination];
     }
 
     /**

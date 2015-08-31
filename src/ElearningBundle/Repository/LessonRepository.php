@@ -15,4 +15,13 @@ class LessonRepository extends EntityRepository
                     ->setParameter('user', $user)
                     ->setParameter('followee', $followee);
     }
+
+    public function getLessonLearned($user_Id)
+    {
+        return $this->createQueryBuilder('l')
+            ->select('l.id')
+            ->where('l.user = :user')
+            ->setParameter('user', $user_Id)
+            ->getQuery()->getResult();
+    }
 }

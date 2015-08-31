@@ -3,19 +3,17 @@
 namespace ElearningBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use ElearningBundle\Entity\Word;
-use ElearningBundle\Entity\Lesson;
 
 class WordRepository extends EntityRepository
 {
-    public function getWordsForLesson($category, $count)
+    public function getWordsForLesson($category, $result)
     {
         return $this->createQueryBuilder('w')
-                    ->where('w.category = :category')
-                    ->setFirstResult(rand(0, $count - Lesson::WORDS_PER_CATEGORY - 1))
-                    ->setMaxResults(Lesson::WORDS_PER_CATEGORY)
-                    ->setParameter('category', $category)
-                    ->getQuery()
-                    ->getResult();
+            ->where('w.id NOT IN (:result)')
+            ->andWhere('w.category = :category')
+            ->setParameter('category', $category)
+            ->setParameter('result', $result)
+            ->getQuery()
+            ->getResult();
     }
 }

@@ -1,0 +1,21 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Lesson</h1>
+    {{ form_start(form) }}
+        {% for question in lesson.results %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    {{ question.word.content }}
+                </div>
+                <div class="panel-footer">
+                    {% for answer in question.word.answers %}
+                        <input type="radio" name="{{ question.id }}" value="{{ answer.id }}"> {{ answer.content }}</input>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <input type="submit" value="Submit" class="btn btn-default" />
+    {{ form_end(form) }}
+{% endblock %}
+
