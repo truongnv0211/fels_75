@@ -36,7 +36,16 @@
     <a href="{{ path('user_edit') }}" class="btn btn-default">
         Edit profile
     </a>
-
+    <h3>Activity</h3>
+    {% for activity in activities %}
+        <strong class="text-capitalize">{{ activity.user.name }}</strong>
+        <em>has learned</em>
+        <strong class="text-capitalize">{{ activity.category.name }}</strong>
+        <em>({{ activity.createdAt|date('d-m-Y H:i:s') }})</em><br><br>
+    {% endfor %}
+    <div class="navigation">
+        {{ knp_pagination_render(activities) }}
+    </div>
     {% block javascripts %}
         <script src="{{ asset('js/follow.js') }}"></script>
     {% endblock %}

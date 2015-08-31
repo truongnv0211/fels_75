@@ -25,6 +25,15 @@
         </div><hr>
         <div class="row">
           <p>Activity :</p>
+          {% for activity in activities %}
+            <strong class="text-capitalize">{{ activity.user.name }}</strong>
+            <em>has learned</em>
+            <strong class="text-capitalize">{{ activity.category.name }}</strong>
+            <em>({{ activity.createdAt|date('d-m-Y H:i:s') }})</em><br><br>
+          {% endfor %}
+          <div class="navigation">
+            {{ knp_pagination_render(activities) }}
+          </div>
         </div>
       </div>
     </div>

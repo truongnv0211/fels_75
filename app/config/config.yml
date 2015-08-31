@@ -10,6 +10,7 @@ parameters:
     locale: en
     categories_per_page: 3
     users_per_page: 10
+    activities_per_page: 10
 
 framework:
     #esi:             ~
