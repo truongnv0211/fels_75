@@ -13,7 +13,7 @@ ElearningBundle\Entity\Word:
             type: string
             length: 255
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
@@ -34,7 +34,7 @@ ElearningBundle\Entity\Word:
     manyToOne:
         category:
             targetEntity: Category
-            inversedBy: word
+            inversedBy: words
             joinColumn:
-                name: category_id
+                name: category
                 referencedColumnName: id

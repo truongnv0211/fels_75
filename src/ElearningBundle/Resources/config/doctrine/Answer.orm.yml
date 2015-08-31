@@ -14,7 +14,7 @@ ElearningBundle\Entity\Answer:
             type: string
             length: 255
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
@@ -27,7 +27,7 @@ ElearningBundle\Entity\Answer:
     manyToOne:
         word:
             targetEntity: Word
-            inversedBy: answer
+            inversedBy: answers
             joinColumn:
-                name: word_id
+                name: word
                 referencedColumnName: id

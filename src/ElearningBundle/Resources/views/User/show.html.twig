@@ -3,6 +3,20 @@
 {% block body %}
     <h1>User Profile</h1>
 
+    {% if (app.user.id != user.id) %}
+        <div id="follow-{{ user.id }}">
+            {% if (follow != NULL) %}
+                <a class="ajax-follow btn btn-info" href="{{ path('unfollow', { 'followee_id': user.id}) }}" id="follow-id-{{ user.id }}" >
+                    Unfollow
+                </a>
+            {% else %}
+                <a class="ajax-follow btn btn-info" href="{{ path('follow', { 'followee_id': user.id}) }}" id="follow-id-{{ user.id }}" >
+                    Follow
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
     <table class="record_properties table table-responsive">
         <tbody>
         <tr>
@@ -22,4 +36,8 @@
     <a href="{{ path('user_edit') }}" class="btn btn-default">
         Edit profile
     </a>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/follow.js') }}"></script>
+    {% endblock %}
 {% endblock %}

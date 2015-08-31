@@ -9,7 +9,7 @@ ElearningBundle\Entity\Result:
                 strategy: AUTO
     fields:
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
@@ -22,19 +22,19 @@ ElearningBundle\Entity\Result:
     manyToOne:
         lesson:
             targetEntity: Lesson
-            inversedBy: result
+            inversedBy: results
             joinColumn:
-                name: lesson_id
+                name: lesson
                 referencedColumnName: id
         answer:
             targetEntity: Answer
-            inversedBy: result
+            inversedBy: results
             joinColumn:
-                name: answer_id
+                name: answer
                 referencedColumnName: id
         word:
             targetEntity: Word
-            inversedBy: result
+            inversedBy: results
             joinColumn:
-                name: word_id
+                name: word
                 referencedColumnName: id

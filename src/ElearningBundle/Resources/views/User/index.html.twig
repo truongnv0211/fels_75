@@ -1,0 +1,55 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Users</h1>
+
+    <table class="records_list table table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Follow</th>
+                <th>Shows</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td><a href="{{ path('user_show', { 'id': user.id }) }}">{{ user.id }}</a></td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        {% if (app.user.id != user.id) %}
+                            <div id="follow-{{ user.id }}">
+                                {% if user.id in followee_ids %}
+                                    <a class="ajax-follow btn btn-info" href="{{ path('unfollow', { 'followee_id': user.id}) }}" id="follow-id-{{ user.id }}" >
+                                        Unfollow
+                                    </a>
+                                {% else %}
+                                    <a class="ajax-follow btn btn-info" href="{{ path('follow', { 'followee_id': user.id}) }}" id="follow-id-{{ user.id }}" >
+                                        Follow
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('user_show', { 'id': user.id }) }}" class="btn btn-default">show</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="navigation">
+        {{ knp_pagination_render(users) }}
+    </div>
+    <a href="{{ path('category_new') }}" class="btn btn-default">
+        Create a new entry
+    </a>
+
+    {% block javascripts %}
+        <script src="{{ asset('js/follow.js') }}"></script>
+    {% endblock %}
+{% endblock %}

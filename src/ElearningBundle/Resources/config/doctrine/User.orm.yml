@@ -26,7 +26,7 @@ ElearningBundle\Entity\User:
         roles:
             type: text
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create

@@ -1,5 +1,6 @@
 ElearningBundle\Entity\Relationship:
     type: entity
+    repositoryClass: ElearningBundle\Repository\RelationshipRepository
     table: null
     id:
         id:
@@ -9,7 +10,7 @@ ElearningBundle\Entity\Relationship:
                 strategy: AUTO
     fields:
         created_at:
-            type: date
+            type: datetime
             gedmo:
                 timestampable:
                     on: create
@@ -19,7 +20,7 @@ ElearningBundle\Entity\Relationship:
                 timestampable:
                     on: update
     lifecycleCallbacks: {  }
-    oneToOne:
+    manyToOne:
         follower:
             targetEntity: User
             joinColumn:
