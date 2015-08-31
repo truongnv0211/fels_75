@@ -37,7 +37,8 @@
         "jquery/jquery": "1.9.*",
         "stof/doctrine-extensions-bundle": "^1.2",
         "gedmo/doctrine-extensions": "dev-master",
-        "knplabs/knp-paginator-bundle": "^2.4"
+        "knplabs/knp-paginator-bundle": "^2.4",
+        "doctrine/doctrine-fixtures-bundle": "dev-master"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

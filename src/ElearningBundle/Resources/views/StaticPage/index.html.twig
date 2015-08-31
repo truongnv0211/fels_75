@@ -3,7 +3,7 @@
 {% block title %}Elearning | Home{% endblock %}
 
 {% block body %}
-  {% if app.user == false %}
+  {% if app.user == null %}
     <div class="jumbotron">
       <h3>Welcome to the StaticPage:index page</h3>
       <a href="{{ path('user_registration') }}"
@@ -16,7 +16,7 @@
       <div class="col-md-8">
         <div class="row">
           <div class="col-md-6">
-            <a href="#" class="btn btn-block btn-lg btn-primary">Word List</a>
+            <a href="{{ path('wordlist_filter') }}" class="btn btn-block btn-lg btn-primary">Word List</a>
           </div>
           <div class="col-md-6">
             <a href="{{ path('category_index') }}"

@@ -234,6 +234,11 @@ class User implements UserInterface
         return $this->lessons;
     }
 
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
     public function getRoles()
     {
         return explode(',', $this->roles);

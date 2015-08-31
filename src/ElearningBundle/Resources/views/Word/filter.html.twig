@@ -1,0 +1,33 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}ElearningBundle:Word:filter{% endblock %}
+
+{% block body %}
+  {{ form_start(form, {'action': path('wordlist_filter'), 'method': 'GET'}) }}
+    {{ form_row(form.category) }}
+    {{ form_label(form.type_word) }}
+    {{ form_widget(form.type_word, {'attr': {'class': 'form-inline'}}) }}<br>
+    <input type="submit" value="Filter" class="btn btn-default form-inline" />
+  {{ form_end(form) }}
+  {% if words != null %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Content</th>
+      </tr>
+    </thead>
+    {% for word in words %}
+      <tbody>
+        <tr>
+          <td>{{ word.id }}</td>
+          <td>{{ word.content }}</td>
+        </tr>
+      </tbody>
+    {% endfor %}
+  </table>
+  <div class="navigation">
+    {{ knp_pagination_render(words) }}
+  </div>
+  {% endif %}
+{% endblock %}
