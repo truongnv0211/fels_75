@@ -140,4 +140,9 @@ class Answer
     {
         return $this->word;
     }
+
+    public function getCorrectAsText()
+    {
+        return ($this->correct == true) ? 'Correct' : 'Incorrect';
+    }
 }

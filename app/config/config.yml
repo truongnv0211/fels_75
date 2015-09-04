@@ -11,6 +11,7 @@ parameters:
     categories_per_page: 3
     users_per_page: 10
     activities_per_page: 10
+    word_per_lesson: 20
 
 framework:
     #esi:             ~

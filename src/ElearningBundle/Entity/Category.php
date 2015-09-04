@@ -26,6 +26,11 @@ class Category
     private $content;
 
     /**
+     * @var integer
+     */
+    private $numberWord;
+
+    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="create")
      */
@@ -198,8 +203,26 @@ class Category
         return $this->lessons;
     }
 
-    public function isEnoughWords()
+    /**
+     * Set name
+     *
+     * @param string $word
+     * @return Category
+     */
+    public function setNumberWord($word)
     {
-        return count($this->words) >= Lesson::WORDS_PER_CATEGORY;
+        $this->numberWord = $word;
+
+        return $this;
+    }
+
+    /**
+     * Set name
+     *
+     * @return Category
+     */
+    public function getNumberWord()
+    {
+        return $this->numberWord;
     }
 }

@@ -1,5 +1,6 @@
 ElearningBundle\Entity\Result:
     type: entity
+    repositoryClass: ElearningBundle\Repository\ResultRepository
     table: null
     id:
         id:

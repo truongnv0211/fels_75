@@ -1,0 +1,26 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+    <h1>Category creation</h1>
+    <div class="table-bordered">
+        <table class="table">
+            {% for result in results %}
+                <tr>
+                    <td>{{ result.word.content }}</td>
+                    {% if result.answer != null %}
+                        <td>
+                            {% if result.answer.content != null %}
+                                {{ result.answer.content }}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ result.answer.correctAsText }}
+                        </td>
+                    {% else %}
+                        <td colspan="2"></td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

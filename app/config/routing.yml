@@ -6,3 +6,6 @@ elearning:
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation
+create_lesson:
+    pattern: /categories/{categoryId}/lesson/new
+    defaults: {_controller: ElearningBundle:Lesson:create}

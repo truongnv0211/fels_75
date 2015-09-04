@@ -16,13 +16,17 @@ class StaticPageController extends Controller
     public function indexAction()
     {
         $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $followee  = $em->getRepository('ElearningBundle:Relationship')->getFolloweeIds($user);
-        $activities  = $em->getRepository('ElearningBundle:Lesson')->getActivityForUser($user, $followee);
-        $paginator  = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($activities, $this->get('request')->get('page', 1), $this->container->getParameter('activities_per_page'));
+        if ($user) {
+            $em = $this->getDoctrine()->getManager();
+            $followees = $em->getRepository('ElearningBundle:Relationship')->getFolloweeIds($user);
+            $activities = $em->getRepository('ElearningBundle:Lesson')->getActivityForUser($user, $followees);
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($activities, $this->get('request')->get('page', 1), $this->container->getParameter('activities_per_page'));
 
-        return ['activities' => $pagination];
+            return ['activities' => $pagination];
+        } else {
+            return [];
+        }
     }
 
     /**
